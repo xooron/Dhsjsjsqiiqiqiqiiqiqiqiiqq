@@ -1,224 +1,449 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Keeper Style App</title>
-    
-    <!-- Подключаем Font Awesome для красивых векторных иконок -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VIP BONUS</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    <style>
-        /* --- БАЗОВЫЕ НАСТРОЙКИ --- */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  :root {
+    --bg1: #05060f;
+    --bg2: #0a1030;
+    --accent: #4f7bff;
+    --accent2: #7d4bff;
+    --gold: #ffcf5c;
+  }
 
-        body {
-            background: 
-                /* Тонкий шум для атмосферы, как в Telegram */
-                url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAUVBMVEWFhYyMjIyampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqawCa0yWAAAACHRSTlMABA4YHyQsM5jtaMwAAADdSURBVEjHY2AgCdYg78YBDN4xB8A8g/AMwzCMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwAAAAASUVORK5CYII=') repeat,
-                linear-gradient(135deg, #0d0d0d 0%, #1a1a1a 100%);
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
+  html, body {
+    height: 100%;
+    overflow-x: hidden;
+  }
 
-        /* --- СТИЛЬ СТЕКЛА (GLASSMORPHISM) --- */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 24px;
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
-            padding: 24px;
-            width: 100%;
-            max-width: 400px;
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
-        }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: radial-gradient(circle at 50% 0%, #0d1440 0%, var(--bg2) 25%, var(--bg1) 70%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    color: #e8ecff;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 300px;
+  }
 
-        .glass-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.5);
-        }
+  /* ==== ФОНОВОЕ СВЕЧЕНИЕ ==== */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(600px 400px at 15% 10%, rgba(79,123,255,0.20), transparent 70%),
+      radial-gradient(700px 500px at 85% 25%, rgba(125,75,255,0.18), transparent 70%),
+      radial-gradient(500px 400px at 50% 100%, rgba(255,207,92,0.10), transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+    animation: bgPulse 10s ease-in-out infinite alternate;
+  }
 
-        /* --- ПАНЕЛЬКИ (КАРТОЧКИ) --- */
-        .bonus-card {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 16px;
-            padding: 16px 20px;
-            margin-bottom: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            transition: all 0.25s ease;
-            position: relative;
-            overflow: hidden;
-        }
+  @keyframes bgPulse {
+    from { opacity: 0.7; }
+    to   { opacity: 1; }
+  }
 
-        .bonus-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transition: left 0.6s;
-        }
+  /* ==== ЗВЁЗДЫ ==== */
+  .stars {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image:
+      radial-gradient(2px 2px at 20% 30%, rgba(255,255,255,0.7), transparent),
+      radial-gradient(1px 1px at 70% 20%, rgba(255,255,255,0.5), transparent),
+      radial-gradient(1.5px 1.5px at 40% 80%, rgba(160,190,255,0.6), transparent),
+      radial-gradient(1px 1px at 85% 65%, rgba(255,255,255,0.5), transparent),
+      radial-gradient(1px 1px at 10% 70%, rgba(255,255,255,0.4), transparent),
+      radial-gradient(1.5px 1.5px at 60% 50%, rgba(200,215,255,0.5), transparent);
+    animation: twinkle 6s ease-in-out infinite alternate;
+  }
 
-        .bonus-card:hover::before {
-            left: 100%;
-        }
+  @keyframes twinkle {
+    from { opacity: 0.4; }
+    to   { opacity: 1; }
+  }
 
-        .bonus-card:hover {
-            background: rgba(255, 255, 255, 0.08);
-            transform: translateX(4px);
-        }
+  /* ==== ЛОГОТИП ==== */
+  header {
+    width: 100%;
+    padding: 34px 40px;
+    display: flex;
+    justify-content: flex-start;
+    z-index: 5;
+  }
 
-        .bonus-info {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            flex-grow: 1;
-        }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: 3px;
+    background: linear-gradient(120deg, #ffffff 0%, #b9ccff 40%, #7d4bff 75%, #4f7bff 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 14px rgba(79,123,255,0.55));
+    animation: logoGlow 4s ease-in-out infinite alternate, logoFloat 6s ease-in-out infinite;
+  }
 
-        /* Логотипы в кругах */
-        .brand-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 18px;
-            flex-shrink: 0;
-        }
+  .logo svg {
+    width: 38px;
+    height: 38px;
+    filter: drop-shadow(0 0 10px rgba(255,207,92,0.7));
+    animation: spinSlow 12s linear infinite;
+  }
 
-        .brand-icon.panda { background: rgba(0, 200, 100, 0.2); color: #00ff88; }
-        .brand-icon.monkey { background: rgba(255, 120, 0, 0.2); color: #ffaa00; }
-        .brand-icon.apex { background: rgba(100, 150, 255, 0.2); color: #66aaff; }
-        .brand-icon.hotskins { background: rgba(255, 60, 200, 0.2); color: #ff33c8; }
+  @keyframes logoGlow {
+    from { filter: drop-shadow(0 0 8px rgba(79,123,255,0.4)); }
+    to   { filter: drop-shadow(0 0 22px rgba(125,75,255,0.85)); }
+  }
 
-        .brand-name {
-            font-size: 18px;
-            font-weight: 600;
-            color: #e0e0e0;
-        }
+  @keyframes logoFloat {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-4px); }
+  }
 
-        /* Кнопка "Получить Бонус" */
-        .bonus-btn {
-            background: linear-gradient(90deg, #50ff88, #00aa55);
-            color: #000000;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 15px;
-            cursor: pointer;
-            flex-shrink: 0;
-            box-shadow: 0 4px 15px rgba(0, 200, 100, 0.3);
-            transition: all 0.2s ease;
-            position: relative;
-            overflow: hidden;
-        }
+  @keyframes spinSlow {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
 
-        .bonus-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 200, 100, 0.4);
-        }
+  /* ==== ПАНЕЛИ ==== */
+  .panels {
+    width: 100%;
+    max-width: 560px;
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+    margin-top: 40px;
+    padding: 0 24px;
+    z-index: 5;
+  }
 
-        .bonus-btn:active {
-            transform: translateY(0);
-            box-shadow: 0 2px 10px rgba(0, 200, 100, 0.3);
-        }
+  .panel {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 26px 28px;
+    border-radius: 22px;
+    background: rgba(255, 255, 255, 0.055);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.55),
+      inset 0 1px 0 rgba(255,255,255,0.22),
+      inset 0 -1px 0 rgba(0,0,0,0.25);
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(40px);
+    animation: panelIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+  }
 
-        .bonus-btn::after {
-            content: '➜';
-            position: absolute;
-            right: 15px;
-            transition: right 0.3s ease;
-        }
+  .panel:nth-child(1) { animation-delay: 0.15s; }
+  .panel:nth-child(2) { animation-delay: 0.32s; }
+  .panel:nth-child(3) { animation-delay: 0.49s; }
 
-        .bonus-btn:hover::after {
-            right: 10px;
-        }
+  @keyframes panelIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
 
-        /* --- Заголовок --- */
-        .app-title {
-            text-align: center;
-            margin-bottom: 20px;
-            font-size: 22px;
-            font-weight: 700;
-            color: #ffffff;
-            position: relative;
-            padding-bottom: 10px;
-        }
+  .panel:hover {
+    transform: translateY(-6px) scale(1.015);
+    border-color: rgba(125,155,255,0.55);
+    box-shadow:
+      0 18px 50px rgba(20, 30, 90, 0.75),
+      0 0 26px rgba(79,123,255,0.35),
+      inset 0 1px 0 rgba(255,255,255,0.3);
+  }
 
-        .app-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 40px;
-            height: 2px;
-            background: linear-gradient(90deg, #50ff88, #00aa55);
-            border-radius: 1px;
-        }
-    </style>
+  /* Блик, пробегающий по панели */
+  .panel::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -70%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(100deg, transparent, rgba(255,255,255,0.18), transparent);
+    transform: skewX(-18deg);
+    animation: shine 5.5s ease-in-out infinite;
+  }
+
+  .panel:nth-child(2)::after { animation-delay: 1.2s; }
+  .panel:nth-child(3)::after { animation-delay: 2.4s; }
+
+  @keyframes shine {
+    0%, 60% { left: -70%; }
+    100%    { left: 130%; }
+  }
+
+  .panel-name {
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: 4px;
+    color: #f2f6ff;
+    text-shadow: 0 0 18px rgba(120,160,255,0.55);
+  }
+
+  .panel-name span {
+    display: block;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    color: rgba(160,180,230,0.75);
+    margin-top: 4px;
+  }
+
+  /* ==== КНОПКА ==== */
+  .btn {
+    position: relative;
+    border: none;
+    cursor: pointer;
+    padding: 14px 24px;
+    border-radius: 14px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: #fff;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+    box-shadow:
+      0 6px 20px rgba(79, 123, 255, 0.45),
+      inset 0 1px 0 rgba(255,255,255,0.35);
+    transition: transform 0.2s ease, box-shadow 0.3s ease, filter 0.3s ease;
+    white-space: nowrap;
+  }
+
+  .btn:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.12);
+    box-shadow:
+      0 10px 30px rgba(125, 75, 255, 0.65),
+      inset 0 1px 0 rgba(255,255,255,0.45);
+  }
+
+  .btn:active {
+    transform: translateY(1px) scale(0.97);
+  }
+
+  /* Пульсация */
+  .btn::before {
+    content: "";
+    position: absolute;
+    inset: -3px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    filter: blur(10px);
+    opacity: 0.55;
+    z-index: -1;
+    animation: btnPulse 2.6s ease-in-out infinite;
+  }
+
+  @keyframes btnPulse {
+    0%, 100% { opacity: 0.35; transform: scale(0.98); }
+    50%      { opacity: 0.8;  transform: scale(1.04); }
+  }
+
+  /* ==== СОБАКА ==== */
+  .dog-wrap {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    pointer-events: none;
+    width: min(420px, 80vw);
+    animation: dogBob 3.4s ease-in-out infinite;
+    filter: drop-shadow(0 -6px 24px rgba(0,0,0,0.75));
+  }
+
+  @keyframes dogBob {
+    0%, 100% { transform: translateX(-50%) translateY(8px); }
+    50%      { transform: translateX(-50%) translateY(-4px); }
+  }
+
+  .dog-wrap svg { width: 100%; height: auto; display: block; }
+
+  .ear-l, .ear-r { transform-origin: center top; animation: earWiggle 4s ease-in-out infinite; }
+  .ear-r { animation-delay: 0.6s; }
+
+  @keyframes earWiggle {
+    0%, 100% { transform: rotate(0deg); }
+    30%      { transform: rotate(4deg); }
+    60%      { transform: rotate(-3deg); }
+  }
+
+  .tongue { transform-origin: 50% 0%; animation: tongueWag 2.2s ease-in-out infinite; }
+
+  @keyframes tongueWag {
+    0%, 100% { transform: rotate(0deg); }
+    50%      { transform: rotate(5deg); }
+  }
+
+  .eyes-blink { animation: blink 5s infinite; }
+  @keyframes blink {
+    0%, 92%, 100% { transform: scaleY(1); }
+    95%           { transform: scaleY(0.1); }
+  }
+
+  @media (max-width: 560px) {
+    header { padding: 24px 20px; }
+    .logo { font-size: 22px; letter-spacing: 2px; }
+    .logo svg { width: 30px; height: 30px; }
+    .panel { padding: 20px 18px; flex-direction: column; gap: 14px; text-align: center; }
+    .panel-name { font-size: 22px; }
+    .btn { width: 100%; }
+    body { padding-bottom: 240px; }
+  }
+</style>
 </head>
 <body>
 
-    <div class="glass-card">
-        
-        <div class="app-title">Выбери бонус</div>
+<div class="stars"></div>
 
-        <!-- PANDA -->
-        <div class="bonus-card">
-            <div class="bonus-info">
-                <div class="brand-icon panda"><i class="fa-solid fa-panda"></i></div>
-                <span class="brand-name">PANDA</span>
-            </div>
-            <button class="bonus-btn">Получить Бонус</button>
-        </div>
+<header>
+  <div class="logo">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2l2.4 6.3L21 9.2l-4.8 4.4L17.6 21 12 17.6 6.4 21l1.4-7.4L3 9.2l6.6-.9L12 2z"
+            fill="url(#g1)" stroke="rgba(255,255,255,0.65)" stroke-width="0.8" stroke-linejoin="round"/>
+      <defs>
+        <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#ffcf5c"/>
+          <stop offset="100%" stop-color="#ff9a3c"/>
+        </linearGradient>
+      </defs>
+    </svg>
+    VIP BONUS
+  </div>
+</header>
 
-        <!-- LEEBET -->
-        <div class="bonus-card">
-            <div class="bonus-info">
-                <div class="brand-icon monkey"><i class="fa-solid fa-monkey"></i></div>
-                <span class="brand-name">LEEBET</span>
-            </div>
-            <button class="bonus-btn">Получить Бонус</button>
-        </div>
+<main class="panels">
 
-        <!-- APEX -->
-        <div class="bonus-card">
-            <div class="bonus-info">
-                <div class="brand-icon apex">A</div>
-                <span class="brand-name">APEX</span>
-            </div>
-            <button class="bonus-btn">Получить Бонус</button>
-        </div>
+  <section class="panel">
+    <div class="panel-name">PANDA<span>SLOT · 96.1% RTP</span></div>
+    <button class="btn">Получить бонус</button>
+  </section>
 
-        <!-- HOTSKINS -->
-        <div class="bonus-card">
-            <div class="bonus-info">
-                <div class="brand-icon hotskins">H</div>
-                <span class="brand-name">HOTSKINS</span>
-            </div>
-            <button class="bonus-btn">Получить Бонус</button>
-        </div>
+  <section class="panel">
+    <div class="panel-name">BANDIT<span>SLOT · 95.7% RTP</span></div>
+    <button class="btn">Получить бонус</button>
+  </section>
 
-    </div>
+  <section class="panel">
+    <div class="panel-name">APEX<span>SLOT · 96.4% RTP</span></div>
+    <button class="btn">Получить бонус</button>
+  </section>
+
+</main>
+
+<!-- ================= СОБАКА ================= -->
+<div class="dog-wrap">
+  <svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="fur" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#c98a4b"/>
+        <stop offset="55%" stop-color="#a86a32"/>
+        <stop offset="100%" stop-color="#7d4a1e"/>
+      </linearGradient>
+      <linearGradient id="snout" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#f3dcb8"/>
+        <stop offset="100%" stop-color="#d8b483"/>
+      </linearGradient>
+      <linearGradient id="collar" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="#4f7bff"/>
+        <stop offset="100%" stop-color="#7d4bff"/>
+      </linearGradient>
+      <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="rgba(79,123,255,0.45)"/>
+        <stop offset="100%" stop-color="rgba(79,123,255,0)"/>
+      </radialGradient>
+    </defs>
+
+    <!-- свечение под собакой -->
+    <ellipse cx="200" cy="235" rx="150" ry="30" fill="url(#glow)"/>
+
+    <!-- уши -->
+    <path class="ear-l" d="M118 92 C 92 70, 70 118, 92 156 C 104 178, 128 168, 132 140 Z" fill="url(#fur)" stroke="#5d3516" stroke-width="2"/>
+    <path class="ear-r" d="M282 92 C 308 70, 330 118, 308 156 C 296 178, 272 168, 268 140 Z" fill="url(#fur)" stroke="#5d3516" stroke-width="2"/>
+    <path d="M112 108 C 98 100, 86 128, 100 152 C 107 163, 120 158, 122 140 Z" fill="#8a5222" opacity="0.75"/>
+    <path d="M288 108 C 302 100, 314 128, 300 152 C 293 163, 280 158, 278 140 Z" fill="#8a5222" opacity="0.75"/>
+
+    <!-- голова -->
+    <ellipse cx="200" cy="120" rx="90" ry="78" fill="url(#fur)" stroke="#5d3516" stroke-width="2.5"/>
+
+    <!-- тёмная маска вокруг глаз -->
+    <ellipse cx="200" cy="132" rx="72" ry="52" fill="#8d5626" opacity="0.55"/>
+
+    <!-- брови / пятна -->
+    <ellipse cx="168" cy="86" rx="13" ry="9" fill="#f0d9b6" opacity="0.85"/>
+    <ellipse cx="232" cy="86" rx="13" ry="9" fill="#f0d9b6" opacity="0.85"/>
+
+    <!-- глаза -->
+    <g class="eyes-blink">
+      <ellipse cx="172" cy="118" rx="15" ry="17" fill="#fff"/>
+      <ellipse cx="228" cy="118" rx="15" ry="17" fill="#fff"/>
+      <circle cx="174" cy="120" r="8.5" fill="#2b1a0c"/>
+      <circle cx="230" cy="120" r="8.5" fill="#2b1a0c"/>
+      <circle cx="177" cy="116" r="3" fill="#fff"/>
+      <circle cx="233" cy="116" r="3" fill="#fff"/>
+    </g>
+
+    <!-- морда -->
+    <ellipse cx="200" cy="158" rx="48" ry="36" fill="url(#snout)" stroke="#b8905e" stroke-width="1.5"/>
+
+    <!-- нос -->
+    <path d="M186 140 Q200 130, 214 140 Q200 154, 186 140 Z" fill="#2e1c0e"/>
+    <ellipse cx="194" cy="138" rx="5" ry="3" fill="#5c4028" opacity="0.7"/>
+
+    <!-- рот -->
+    <path d="M200 148 L200 160" stroke="#7a4f28" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M200 160 Q188 172, 178 164" stroke="#7a4f28" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+    <path d="M200 160 Q212 172, 222 164" stroke="#7a4f28" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+
+    <!-- язык -->
+    <g class="tongue">
+      <path d="M193 168 Q200 196, 209 168 Q200 178, 193 168 Z" fill="#f06a86" stroke="#c94662" stroke-width="1.2"/>
+    </g>
+
+    <!-- усы -->
+    <path d="M168 150 L146 144 M168 158 L144 158 M168 166 L146 172"
+          stroke="#6b4523" stroke-width="1.6" stroke-linecap="round" opacity="0.75"/>
+    <path d="M232 150 L254 144 M232 158 L256 158 M232 166 L254 172"
+          stroke="#6b4523" stroke-width="1.6" stroke-linecap="round" opacity="0.75"/>
+
+    <!-- шея / тело -->
+    <path d="M140 186 Q200 214, 260 186 L272 250 L128 250 Z" fill="url(#fur)" stroke="#5d3516" stroke-width="2.5"/>
+
+    <!-- ошейник -->
+    <path d="M134 196 Q200 228, 266 196 L268 212 Q200 246, 132 212 Z" fill="url(#collar)"/>
+    <circle cx="200" cy="230" r="10" fill="#ffcf5c" stroke="#c9962f" stroke-width="2"/>
+    <text x="200" y="235" text-anchor="middle" font-size="11" font-weight="bold" fill="#6a4a00" font-family="Segoe UI, sans-serif">$</text>
+  </svg>
+</div>
+
+<script>
+  document.querySelectorAll('.btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      btn.style.transform = 'scale(0.92)';
+      setTimeout(function () { btn.style.transform = ''; }, 130);
+    });
+  });
+</script>
 
 </body>
 </html>
