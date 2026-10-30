@@ -4,148 +4,202 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>BONUS CASINO</title>
-    <!-- Подключаем официальный SDK Telegram для инициализации WebApp -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         :root {
-            /* Темно-темно-синий фон, как вы просили */
-            --bg-color: rgba(5, 10, 30, 0.85);
-            --panel-bg: rgba(10, 20, 50, 0.4);
-            --glass-color: rgba(255, 255, 255, 0.08);
-            --text-primary: #ffffff;
-            --text-secondary: #a0a8c0;
-            --accent-gradient: linear-gradient(135deg, #00e5ff, #8e2de2);
-            --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            --bg-main: #0a0a0a;
+            --bg-panel: #121212;
+            --glass-bg: rgba(255, 255, 255, 0.04);
+            --glass-border: rgba(255, 255, 255, 0.12);
+            --text-primary: #f0f0f0;
+            --text-muted: #9e9e9e;
+            --accent-glow: #ffffff;
+            --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.6);
+            --shadow-hard: 0 2px 8px rgba(0, 0, 0, 0.8);
+            --btn-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
         }
 
         body {
             margin: 0;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-            background: linear-gradient(135deg, #0a0f2a, #1a051e);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-main);
             color: var(--text-primary);
+            line-height: 1.4;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            overflow-x: hidden;
         }
 
-        /* Инициализация Telegram WebApp (убирает стандартные поля мессенджера) */
         body.telegram-app-ready {
-            background: var(--bg-color);
+            background: var(--bg-main);
         }
 
-        /* Верхняя панель */
+        /* Глобальные анимации появления */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Эффект сканирования (бегущий блик) */
+        @keyframes scan-light {
+            0% { transform: translateX(-120%) skewX(-20deg); }
+            50% { transform: translateX(120%) skewX(-20deg); }
+            100% { transform: translateX(120%) skewX(-20deg); }
+        }
+
         .header {
-            padding: 16px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+            padding: 24px 20px 16px;
             position: sticky;
             top: 0;
-            z-index: 10;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 20;
+            background: linear-gradient(to bottom, var(--bg-main) 0%, rgba(10, 10, 10, 0.6) 100%);
+            border-bottom: 1px solid var(--glass-border);
+            backdrop-filter: blur(20px);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
         }
 
         .header-title {
-            font-size: 20px;
-            font-weight: 700;
-            background: var(--accent-gradient);
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: linear-gradient(90deg, #1e1e1e, #3a3a3a);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: 0.5px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
         }
 
         .header-sub {
-            font-size: 13px;
-            padding: 6px 12px;
-            background: var(--panel-bg);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-top: 6px;
+            font-size: 14px;
+            font-weight: 400;
+            color: var(--text-muted);
+            font-style: italic;
+            padding: 4px 10px;
+            border: 1px solid var(--glass-border);
             border-radius: 999px;
-            backdrop-filter: blur(15px);
-            box-shadow: var(--shadow);
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
         }
 
-        /* Основной контейнер */
         .container {
             flex: 1;
             padding: 20px;
-            overflow-y: auto;
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 24px;
+            position: relative;
         }
 
-        /* Стеклянные панельки с играми */
+        /* Стиль стеклянных панелек */
         .game-grid {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 18px;
+            position: relative;
         }
 
         .game-panel {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 16px 20px;
-            background: var(--glass-color);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            backdrop-filter: blur(20px);
-            box-shadow: var(--shadow);
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s;
+            padding: 20px 24px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
             position: relative;
             overflow: hidden;
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s;
+            box-shadow: var(--shadow-soft);
         }
 
+        /* Слой сканирования поверх панельки */
         .game-panel::before {
             content: '';
             position: absolute;
-            top: 0;
+            top: -100%;
             left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.8s;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.1) 40%, rgba(255,255,255,0) 100%);
+            transform: skewX(-20deg);
+            animation: scan-light 4s infinite;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
         }
 
         .game-panel:hover::before {
-            left: 100%;
+            opacity: 1;
         }
 
         .game-panel:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 40px rgba(142, 45, 226, 0.25);
+            transform: translateY(-6px) perspective(1000px) rotateX(5deg);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.12);
         }
 
         .game-name {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 600;
             color: var(--text-primary);
+            position: relative;
+            z-index: 1;
         }
 
+        /* Кнопка с акустической волной */
         .bonus-btn {
-            padding: 10px 20px;
-            background: var(--accent-gradient);
-            color: white;
-            border: none;
-            border-radius: 12px;
+            padding: 14px 28px;
+            background: transparent;
+            color: var(--accent-glow);
+            border: 1px solid var(--glass-border);
+            border-radius: 14px;
             font-weight: 600;
-            font-size: 14px;
+            font-size: 15px;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(142, 45, 226, 0.4);
-            transition: transform 0.2s, box-shadow 0.2s;
-            flex-shrink: 0;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+            box-shadow: var(--btn-shadow);
+            transition: color 0.3s, background 0.3s;
         }
 
-        .bonus-btn:active {
-            transform: scale(0.96);
-            box-shadow: 0 2px 8px rgba(142, 45, 226, 0.3);
+        .bonus-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 60%);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+            pointer-events: none;
+            z-index: -1;
         }
 
-        /* Telegram Safe Area для iPhone (чтобы контент не уходил под Dynamic Island) */
+        .bonus-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--bg-main);
+        }
+
+        .bonus-btn:active::after {
+            width: 300px;
+            height: 300px;
+        }
+
+        /* Эффект ввода (появление всей страницы) */
+        .app-enter {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
         .safe-area {
             padding-bottom: env(safe-area-inset-bottom, 20px);
+            height: 1px;
         }
     </style>
 </head>
@@ -187,27 +241,29 @@
     </main>
 
     <script>
-        // Инициализация Telegram WebApp
         const tg = window.Telegram.WebApp;
         
-        // Меняем цвет заголовка в самом клиенте Telegram (верхняя полоска)
-        tg.MainButton.setText('Продолжить').hide();
+        tg.MainButton.hide();
         tg.BackButton.show();
-        
-        // Применяем безопасные области и расширяем фон на весь экран
         tg.expand();
-        tg.enableClosingConfirmation();
         
-        // Добавляем класс для корректного фона после инициализации
-        document.body.classList.add('telegram-app-ready');
+        // Добавляем класс для плавного появления
+        document.body.classList.add('app-enter', 'telegram-app-ready');
 
-        // Логика кнопок (пример)
         document.querySelectorAll('.bonus-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const gameName = btn.previousElementSibling.textContent;
-                // Здесь будет ваша логика выдачи бонуса
-                tg.HapticFeedback.notificationOccurred('success');
-                alert(`Бонус для ${gameName} успешно получен!`);
+            btn.addEventListener('click', (e) => {
+                const gameName = e.target.previousElementSibling.textContent;
+                
+                // Анимация нажатия
+                btn.style.transform = 'scale(0.95)';
+                setTimeout(() => btn.style.transform = '', 150);
+                
+                tg.HapticFeedback.impactOccurred('medium');
+                
+                // Модальное окно в стиле Mini App
+                tg.showAlert(`✅ Бонус для ${gameName} получен!`, () => {
+                    console.log('Бонус начислен');
+                });
             });
         });
     </script>
