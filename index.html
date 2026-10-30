@@ -3,269 +3,222 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>BONUS CASINO</title>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <title>Casino Bonus</title>
     <style>
         :root {
-            --bg-main: #0a0a0a;
-            --bg-panel: #121212;
-            --glass-bg: rgba(255, 255, 255, 0.04);
-            --glass-border: rgba(255, 255, 255, 0.12);
-            --text-primary: #f0f0f0;
-            --text-muted: #9e9e9e;
-            --accent-glow: #ffffff;
-            --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.6);
-            --shadow-hard: 0 2px 8px rgba(0, 0, 0, 0.8);
-            --btn-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+            --bg: #0a0a0a;
+            --text-main: #ffffff;
+            --text-orange: #ff6c00;
+            --panel-yellow: #fcd34d;
+            --panel-green: #22c55e;
+            --panel-bg: #181818;
+            --border: #333333;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
         }
 
         body {
             margin: 0;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg-main);
-            color: var(--text-primary);
-            line-height: 1.4;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
             overflow-x: hidden;
         }
 
-        body.telegram-app-ready {
-            background: var(--bg-main);
-        }
-
-        /* Глобальные анимации появления */
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Эффект сканирования (бегущий блик) */
-        @keyframes scan-light {
-            0% { transform: translateX(-120%) skewX(-20deg); }
-            50% { transform: translateX(120%) skewX(-20deg); }
-            100% { transform: translateX(120%) skewX(-20deg); }
-        }
-
         .header {
-            padding: 24px 20px 16px;
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
             position: sticky;
             top: 0;
-            z-index: 20;
-            background: linear-gradient(to bottom, var(--bg-main) 0%, rgba(10, 10, 10, 0.6) 100%);
-            border-bottom: 1px solid var(--glass-border);
-            backdrop-filter: blur(20px);
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
+            background: var(--bg);
+            z-index: 10;
         }
 
-        .header-title {
-            font-size: 28px;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            background: linear-gradient(90deg, #1e1e1e, #3a3a3a);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
         }
 
-        .header-sub {
-            margin-top: 6px;
-            font-size: 14px;
-            font-weight: 400;
-            color: var(--text-muted);
-            font-style: italic;
-            padding: 4px 10px;
-            border: 1px solid var(--glass-border);
-            border-radius: 999px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(10px);
+        .logo span {
+            color: var(--text-orange);
+        }
+
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--text-orange), transparent);
+            margin: 15px 0;
+            width: 100%;
+        }
+
+        .bonus-label {
+            font-size: 18px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .container {
-            flex: 1;
             padding: 20px;
             display: flex;
             flex-direction: column;
-            gap: 24px;
-            position: relative;
+            gap: 20px;
         }
 
-        /* Стиль стеклянных панелек */
-        .game-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 18px;
-            position: relative;
-        }
-
-        .game-panel {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 20px 24px;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
+        .card {
+            background: var(--panel-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
             position: relative;
             overflow: hidden;
-            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s;
-            box-shadow: var(--shadow-soft);
-        }
-
-        /* Слой сканирования поверх панельки */
-        .game-panel::before {
-            content: '';
-            position: absolute;
-            top: -100%;
-            left: -100%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.1) 40%, rgba(255,255,255,0) 100%);
-            transform: skewX(-20deg);
-            animation: scan-light 4s infinite;
-            pointer-events: none;
+            box-shadow: var(--shadow);
+            transform: translateY(30px);
             opacity: 0;
-            transition: opacity 0.3s;
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .game-panel:hover::before {
+        .card.in-view {
+            transform: translateY(0);
             opacity: 1;
         }
 
-        .game-panel:hover {
-            transform: translateY(-6px) perspective(1000px) rotateX(5deg);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.12);
-        }
-
-        .game-name {
-            font-size: 20px;
-            font-weight: 600;
-            color: var(--text-primary);
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Кнопка с акустической волной */
-        .bonus-btn {
-            padding: 14px 28px;
-            background: transparent;
-            color: var(--accent-glow);
-            border: 1px solid var(--glass-border);
-            border-radius: 14px;
-            font-weight: 600;
-            font-size: 15px;
-            cursor: pointer;
-            position: relative;
-            z-index: 1;
-            overflow: hidden;
-            box-shadow: var(--btn-shadow);
-            transition: color 0.3s, background 0.3s;
-        }
-
-        .bonus-btn::after {
+        .card::before {
             content: '';
             position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 60%);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-            pointer-events: none;
-            z-index: -1;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--panel-yellow), var(--panel-green));
         }
 
-        .bonus-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--bg-main);
+        .card-title {
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 15px;
         }
 
-        .bonus-btn:active::after {
-            width: 300px;
-            height: 300px;
+        .stats {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
         }
 
-        /* Эффект ввода (появление всей страницы) */
-        .app-enter {
-            animation: fadeInUp 0.8s ease-out forwards;
+        .stat-box {
+            flex: 1;
+            min-width: 140px;
+            background: var(--panel-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            font-weight: 700;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
         }
 
-        .safe-area {
-            padding-bottom: env(safe-area-inset-bottom, 20px);
-            height: 1px;
+        .stat-yellow {
+            background-color: rgba(252, 211, 77, 0.15);
+            color: var(--panel-yellow);
+        }
+
+        .stat-green {
+            background-color: rgba(34, 197, 94, 0.15);
+            color: var(--panel-green);
+        }
+
+        .stat-value {
+            display: block;
+            font-size: 20px;
+            margin-top: 5px;
+        }
+
+        @media (min-width: 600px) {
+            .container {
+                flex-direction: row;
+            }
+            .card {
+                flex: 1;
+            }
         }
     </style>
 </head>
 <body>
 
     <header class="header">
-        <div class="header-title">BONUS CASINO</div>
-        <div class="header-sub">Выбирай скорее себе бонус и выигрывай вместе с нами и 100% RTP</div>
+        <div class="logo">Casino <span>Bonus</span></div>
+        <div class="divider"></div>
+        <div class="bonus-label">BONUS</div>
     </header>
 
     <main class="container">
-        <div class="game-grid">
-            <div class="game-panel">
-                <span class="game-name">PANDA</span>
-                <button class="bonus-btn">Получить Бонус</button>
-            </div>
-            <div class="game-panel">
-                <span class="game-name">BANDIT</span>
-                <button class="bonus-btn">Получить Бонус</button>
-            </div>
-            <div class="game-panel">
-                <span class="game-name">JETTON</span>
-                <button class="bonus-btn">Получить Бонус</button>
-            </div>
-            <div class="game-panel">
-                <span class="game-name">LEEBET</span>
-                <button class="bonus-btn">Получить Бонус</button>
-            </div>
-            <div class="game-panel">
-                <span class="game-name">APEX</span>
-                <button class="bonus-btn">Получить Бонус</button>
-            </div>
-            <div class="game-panel">
-                <span class="game-name">EVA</span>
-                <button class="bonus-btn">Получить Бонус</button>
+        <div class="card" id="card1">
+            <div class="card-title">PANDA</div>
+            <div class="stats">
+                <div class="stat-box stat-yellow">
+                    <span>FS</span>
+                    <span class="stat-value">1500</span>
+                </div>
+                <div class="stat-box stat-green">
+                    <span>Bonus</span>
+                    <span class="stat-value">225%</span>
+                </div>
             </div>
         </div>
-        <div class="safe-area"></div>
+
+        <div class="card" id="card2">
+            <div class="card-title">JETTON</div>
+            <div class="stats">
+                <div class="stat-box stat-yellow">
+                    <span>FS</span>
+                    <span class="stat-value">250</span>
+                </div>
+                <div class="stat-box stat-green">
+                    <span>Bonus</span>
+                    <span class="stat-value">425%</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" id="card3">
+            <div class="card-title">APEX</div>
+            <div class="stats">
+                <div class="stat-box stat-yellow">
+                    <span>FS</span>
+                    <span class="stat-value">900</span>
+                </div>
+                <div class="stat-box stat-green">
+                    <span>Bonus</span>
+                    <span class="stat-value">225%</span>
+                </div>
+            </div>
+        </div>
     </main>
 
     <script>
-        const tg = window.Telegram.WebApp;
-        
-        tg.MainButton.hide();
-        tg.BackButton.show();
-        tg.expand();
-        
-        // Добавляем класс для плавного появления
-        document.body.classList.add('app-enter', 'telegram-app-ready');
+        // Анимация появления карточек при скролле
+        const observerOptions = {
+            threshold: 0.3,
+            rootMargin: '0px 0px -50px 0px'
+        };
 
-        document.querySelectorAll('.bonus-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const gameName = e.target.previousElementSibling.textContent;
-                
-                // Анимация нажатия
-                btn.style.transform = 'scale(0.95)';
-                setTimeout(() => btn.style.transform = '', 150);
-                
-                tg.HapticFeedback.impactOccurred('medium');
-                
-                // Модальное окно в стиле Mini App
-                tg.showAlert(`✅ Бонус для ${gameName} получен!`, () => {
-                    console.log('Бонус начислен');
-                });
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                }
             });
+        }, observerOptions);
+
+        document.querySelectorAll('.card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // Автоматическая активация первой карточки при загрузке (для красоты)
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('card1').classList.add('in-view');
+            }, 100);
         });
     </script>
+
 </body>
 </html>
