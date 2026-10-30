@@ -7,127 +7,89 @@
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
-  :root {
-    --bg1: #05060f;
-    --bg2: #0a1030;
-    --accent: #4f7bff;
-    --accent2: #7d4bff;
-    --gold: #ffcf5c;
-  }
-
-  html, body {
-    height: 100%;
-    overflow-x: hidden;
-  }
+  html, body { min-height: 100%; }
 
   body {
-    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-    background: radial-gradient(circle at 50% 0%, #0d1440 0%, var(--bg2) 25%, var(--bg1) 70%);
-    background-attachment: fixed;
-    min-height: 100vh;
-    color: #e8ecff;
-    position: relative;
+    font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+    background: #05070f;
+    color: #dfe7ff;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-bottom: 300px;
+    overflow-x: hidden;
+    position: relative;
+    padding-bottom: 240px;
   }
 
-  /* ==== ФОНОВОЕ СВЕЧЕНИЕ ==== */
-  body::before {
-    content: "";
+  /* ==== ФОН ==== */
+  .bg {
     position: fixed;
     inset: 0;
-    background:
-      radial-gradient(600px 400px at 15% 10%, rgba(79,123,255,0.20), transparent 70%),
-      radial-gradient(700px 500px at 85% 25%, rgba(125,75,255,0.18), transparent 70%),
-      radial-gradient(500px 400px at 50% 100%, rgba(255,207,92,0.10), transparent 70%);
-    pointer-events: none;
     z-index: 0;
-    animation: bgPulse 10s ease-in-out infinite alternate;
+    background:
+      radial-gradient(ellipse 65% 45% at 18% 8%,  rgba(26, 44, 92, 0.55) 0%, transparent 62%),
+      radial-gradient(ellipse 55% 45% at 84% 22%, rgba(48, 28, 78, 0.45) 0%, transparent 60%),
+      radial-gradient(ellipse 90% 55% at 50% 104%, rgba(14, 24, 52, 0.85) 0%, transparent 70%),
+      #05070f;
   }
 
-  @keyframes bgPulse {
-    from { opacity: 0.7; }
-    to   { opacity: 1; }
-  }
-
-  /* ==== ЗВЁЗДЫ ==== */
   .stars {
     position: fixed;
     inset: 0;
-    z-index: 0;
+    z-index: 1;
     pointer-events: none;
     background-image:
-      radial-gradient(2px 2px at 20% 30%, rgba(255,255,255,0.7), transparent),
-      radial-gradient(1px 1px at 70% 20%, rgba(255,255,255,0.5), transparent),
-      radial-gradient(1.5px 1.5px at 40% 80%, rgba(160,190,255,0.6), transparent),
-      radial-gradient(1px 1px at 85% 65%, rgba(255,255,255,0.5), transparent),
-      radial-gradient(1px 1px at 10% 70%, rgba(255,255,255,0.4), transparent),
-      radial-gradient(1.5px 1.5px at 60% 50%, rgba(200,215,255,0.5), transparent);
-    animation: twinkle 6s ease-in-out infinite alternate;
+      radial-gradient(1px 1px at 12% 18%, rgba(180,200,255,0.30), transparent),
+      radial-gradient(1px 1px at 78% 12%, rgba(180,200,255,0.24), transparent),
+      radial-gradient(1px 1px at 34% 62%, rgba(180,200,255,0.22), transparent),
+      radial-gradient(1px 1px at 66% 78%, rgba(180,200,255,0.20), transparent),
+      radial-gradient(1px 1px at 88% 44%, rgba(180,200,255,0.22), transparent),
+      radial-gradient(1px 1px at 22% 88%, rgba(180,200,255,0.18), transparent),
+      radial-gradient(1px 1px at 52% 32%, rgba(180,200,255,0.16), transparent);
+    animation: twinkle 9s ease-in-out infinite;
   }
 
   @keyframes twinkle {
-    from { opacity: 0.4; }
-    to   { opacity: 1; }
+    0%, 100% { opacity: 0.55; }
+    50%      { opacity: 1; }
   }
 
-  /* ==== ЛОГОТИП ==== */
+  /* ==== ЛОГОТИП (только текст) ==== */
   header {
     width: 100%;
-    padding: 34px 40px;
-    display: flex;
-    justify-content: flex-start;
+    max-width: 1120px;
+    padding: 40px 44px 0;
     z-index: 5;
   }
 
   .logo {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-size: 28px;
+    display: inline-block;
+    font-size: 26px;
     font-weight: 800;
-    letter-spacing: 3px;
-    background: linear-gradient(120deg, #ffffff 0%, #b9ccff 40%, #7d4bff 75%, #4f7bff 100%);
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    background: linear-gradient(100deg, #8a9bd6 0%, #d7e0ff 45%, #8a9bd6 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    filter: drop-shadow(0 0 14px rgba(79,123,255,0.55));
-    animation: logoGlow 4s ease-in-out infinite alternate, logoFloat 6s ease-in-out infinite;
-  }
-
-  .logo svg {
-    width: 38px;
-    height: 38px;
-    filter: drop-shadow(0 0 10px rgba(255,207,92,0.7));
-    animation: spinSlow 12s linear infinite;
-  }
-
-  @keyframes logoGlow {
-    from { filter: drop-shadow(0 0 8px rgba(79,123,255,0.4)); }
-    to   { filter: drop-shadow(0 0 22px rgba(125,75,255,0.85)); }
+    filter: drop-shadow(0 0 10px rgba(90, 120, 200, 0.25));
+    animation: logoFloat 6s ease-in-out infinite;
   }
 
   @keyframes logoFloat {
     0%, 100% { transform: translateY(0); }
-    50%      { transform: translateY(-4px); }
+    50%      { transform: translateY(-3px); }
   }
 
-  @keyframes spinSlow {
-    from { transform: rotate(0deg); }
-    to   { transform: rotate(360deg); }
-  }
-
-  /* ==== ПАНЕЛИ ==== */
+  /* ==== КОМПАКТНЫЕ ПАНЕЛИ ==== */
   .panels {
     width: 100%;
-    max-width: 560px;
+    max-width: 400px;          /* уже */
     display: flex;
     flex-direction: column;
-    gap: 26px;
-    margin-top: 40px;
-    padding: 0 24px;
+    gap: 12px;                 /* меньше отступ */
+    margin-top: 52px;
+    padding: 0 20px;
     z-index: 5;
   }
 
@@ -136,127 +98,102 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 16px;
-    padding: 26px 28px;
-    border-radius: 22px;
-    background: rgba(255, 255, 255, 0.055);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-    border: 1px solid rgba(255, 255, 255, 0.13);
+    gap: 14px;
+    padding: 14px 18px;        /* компактнее */
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.028);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(140, 165, 230, 0.10);
     box-shadow:
-      0 8px 32px rgba(0, 0, 0, 0.55),
-      inset 0 1px 0 rgba(255,255,255,0.22),
-      inset 0 -1px 0 rgba(0,0,0,0.25);
+      0 8px 26px rgba(0, 0, 0, 0.65),
+      inset 0 1px 0 rgba(255,255,255,0.06);
     overflow: hidden;
     opacity: 0;
-    transform: translateY(40px);
+    transform: translateY(28px);
     animation: panelIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
     transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
   }
 
-  .panel:nth-child(1) { animation-delay: 0.15s; }
-  .panel:nth-child(2) { animation-delay: 0.32s; }
-  .panel:nth-child(3) { animation-delay: 0.49s; }
+  .panel:nth-child(1) { animation-delay: 0.10s; }
+  .panel:nth-child(2) { animation-delay: 0.24s; }
+  .panel:nth-child(3) { animation-delay: 0.38s; }
 
   @keyframes panelIn {
     to { opacity: 1; transform: translateY(0); }
   }
 
   .panel:hover {
-    transform: translateY(-6px) scale(1.015);
-    border-color: rgba(125,155,255,0.55);
+    transform: translateY(-3px);
+    border-color: rgba(120, 150, 230, 0.28);
     box-shadow:
-      0 18px 50px rgba(20, 30, 90, 0.75),
-      0 0 26px rgba(79,123,255,0.35),
-      inset 0 1px 0 rgba(255,255,255,0.3);
+      0 14px 36px rgba(0, 0, 0, 0.75),
+      0 0 20px rgba(70, 100, 190, 0.14),
+      inset 0 1px 0 rgba(255,255,255,0.09);
   }
 
-  /* Блик, пробегающий по панели */
   .panel::after {
     content: "";
     position: absolute;
     top: 0;
     left: -70%;
-    width: 50%;
+    width: 45%;
     height: 100%;
-    background: linear-gradient(100deg, transparent, rgba(255,255,255,0.18), transparent);
+    background: linear-gradient(100deg, transparent, rgba(160, 190, 255, 0.07), transparent);
     transform: skewX(-18deg);
-    animation: shine 5.5s ease-in-out infinite;
+    animation: shine 7s ease-in-out infinite;
   }
 
-  .panel:nth-child(2)::after { animation-delay: 1.2s; }
-  .panel:nth-child(3)::after { animation-delay: 2.4s; }
+  .panel:nth-child(2)::after { animation-delay: 1.6s; }
+  .panel:nth-child(3)::after { animation-delay: 3.2s; }
 
   @keyframes shine {
-    0%, 60% { left: -70%; }
+    0%, 70% { left: -70%; }
     100%    { left: 130%; }
   }
 
   .panel-name {
-    font-size: 26px;
-    font-weight: 800;
-    letter-spacing: 4px;
-    color: #f2f6ff;
-    text-shadow: 0 0 18px rgba(120,160,255,0.55);
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: #dfe7ff;
   }
 
   .panel-name span {
     display: block;
-    font-size: 11px;
+    font-size: 9px;
     font-weight: 500;
-    letter-spacing: 2px;
-    color: rgba(160,180,230,0.75);
-    margin-top: 4px;
+    letter-spacing: 1.6px;
+    color: rgba(130, 150, 200, 0.55);
+    margin-top: 3px;
   }
 
   /* ==== КНОПКА ==== */
   .btn {
     position: relative;
-    border: none;
+    border: 1px solid rgba(150, 175, 240, 0.20);
     cursor: pointer;
-    padding: 14px 24px;
-    border-radius: 14px;
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 1.2px;
+    padding: 9px 14px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1.1px;
     text-transform: uppercase;
-    color: #fff;
-    background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
-    box-shadow:
-      0 6px 20px rgba(79, 123, 255, 0.45),
-      inset 0 1px 0 rgba(255,255,255,0.35);
-    transition: transform 0.2s ease, box-shadow 0.3s ease, filter 0.3s ease;
+    color: #cfd9f5;
+    background: linear-gradient(135deg, rgba(58, 86, 176, 0.55) 0%, rgba(90, 58, 158, 0.55) 100%);
+    transition: transform 0.2s ease, box-shadow 0.3s ease, filter 0.3s ease, border-color 0.3s ease;
     white-space: nowrap;
   }
 
   .btn:hover {
     transform: translateY(-2px);
-    filter: brightness(1.12);
-    box-shadow:
-      0 10px 30px rgba(125, 75, 255, 0.65),
-      inset 0 1px 0 rgba(255,255,255,0.45);
+    filter: brightness(1.2);
+    border-color: rgba(170, 195, 255, 0.45);
+    box-shadow: 0 8px 24px rgba(40, 60, 140, 0.5);
   }
 
   .btn:active {
-    transform: translateY(1px) scale(0.97);
-  }
-
-  /* Пульсация */
-  .btn::before {
-    content: "";
-    position: absolute;
-    inset: -3px;
-    border-radius: 16px;
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
-    filter: blur(10px);
-    opacity: 0.55;
-    z-index: -1;
-    animation: btnPulse 2.6s ease-in-out infinite;
-  }
-
-  @keyframes btnPulse {
-    0%, 100% { opacity: 0.35; transform: scale(0.98); }
-    50%      { opacity: 0.8;  transform: scale(1.04); }
+    transform: translateY(1px) scale(0.98);
   }
 
   /* ==== СОБАКА ==== */
@@ -267,172 +204,213 @@
     transform: translateX(-50%);
     z-index: 3;
     pointer-events: none;
-    width: min(420px, 80vw);
-    animation: dogBob 3.4s ease-in-out infinite;
-    filter: drop-shadow(0 -6px 24px rgba(0,0,0,0.75));
+    width: min(360px, 76vw);
+    animation: dogBob 4s ease-in-out infinite;
+    filter: drop-shadow(0 -10px 30px rgba(0,0,0,0.9));
   }
 
   @keyframes dogBob {
-    0%, 100% { transform: translateX(-50%) translateY(8px); }
-    50%      { transform: translateX(-50%) translateY(-4px); }
+    0%, 100% { transform: translateX(-50%) translateY(10px); }
+    50%      { transform: translateX(-50%) translateY(0); }
   }
 
   .dog-wrap svg { width: 100%; height: auto; display: block; }
 
-  .ear-l, .ear-r { transform-origin: center top; animation: earWiggle 4s ease-in-out infinite; }
-  .ear-r { animation-delay: 0.6s; }
+  .ear-l, .ear-r { transform-origin: center top; animation: earWiggle 4.5s ease-in-out infinite; }
+  .ear-r { animation-delay: 0.7s; }
 
   @keyframes earWiggle {
     0%, 100% { transform: rotate(0deg); }
-    30%      { transform: rotate(4deg); }
-    60%      { transform: rotate(-3deg); }
+    30%      { transform: rotate(3deg); }
+    65%      { transform: rotate(-2deg); }
   }
 
-  .tongue { transform-origin: 50% 0%; animation: tongueWag 2.2s ease-in-out infinite; }
+  .tongue { transform-origin: 50% 0%; animation: tongueWag 2.6s ease-in-out infinite; }
 
   @keyframes tongueWag {
     0%, 100% { transform: rotate(0deg); }
-    50%      { transform: rotate(5deg); }
+    50%      { transform: rotate(6deg); }
   }
 
-  .eyes-blink { animation: blink 5s infinite; }
+  .eyes-blink { animation: blink 6s infinite; }
   @keyframes blink {
-    0%, 92%, 100% { transform: scaleY(1); }
-    95%           { transform: scaleY(0.1); }
+    0%, 93%, 100% { transform: scaleY(1); }
+    96%           { transform: scaleY(0.1); }
+  }
+
+  .tail { transform-origin: 100% 100%; animation: tailWag 1.8s ease-in-out infinite; }
+  @keyframes tailWag {
+    0%, 100% { transform: rotate(-8deg); }
+    50%      { transform: rotate(10deg); }
   }
 
   @media (max-width: 560px) {
-    header { padding: 24px 20px; }
-    .logo { font-size: 22px; letter-spacing: 2px; }
-    .logo svg { width: 30px; height: 30px; }
-    .panel { padding: 20px 18px; flex-direction: column; gap: 14px; text-align: center; }
-    .panel-name { font-size: 22px; }
-    .btn { width: 100%; }
-    body { padding-bottom: 240px; }
+    header { padding: 28px 22px 0; }
+    .logo { font-size: 20px; letter-spacing: 4px; }
+    .panels { margin-top: 40px; max-width: 100%; }
+    .panel {
+      padding: 12px 14px;
+      gap: 10px;
+    }
+    .panel-name { font-size: 15px; letter-spacing: 2.4px; }
+    .btn { font-size: 9px; padding: 8px 11px; }
+    body { padding-bottom: 200px; }
   }
 </style>
 </head>
 <body>
 
+<div class="bg"></div>
 <div class="stars"></div>
 
 <header>
-  <div class="logo">
-    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M12 2l2.4 6.3L21 9.2l-4.8 4.4L17.6 21 12 17.6 6.4 21l1.4-7.4L3 9.2l6.6-.9L12 2z"
-            fill="url(#g1)" stroke="rgba(255,255,255,0.65)" stroke-width="0.8" stroke-linejoin="round"/>
-      <defs>
-        <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stop-color="#ffcf5c"/>
-          <stop offset="100%" stop-color="#ff9a3c"/>
-        </linearGradient>
-      </defs>
-    </svg>
-    VIP BONUS
-  </div>
+  <div class="logo">VIP BONUS</div>
 </header>
 
 <main class="panels">
 
   <section class="panel">
     <div class="panel-name">PANDA<span>SLOT · 96.1% RTP</span></div>
-    <button class="btn">Получить бонус</button>
+    <button class="btn">Бонус</button>
   </section>
 
   <section class="panel">
     <div class="panel-name">BANDIT<span>SLOT · 95.7% RTP</span></div>
-    <button class="btn">Получить бонус</button>
+    <button class="btn">Бонус</button>
   </section>
 
   <section class="panel">
     <div class="panel-name">APEX<span>SLOT · 96.4% RTP</span></div>
-    <button class="btn">Получить бонус</button>
+    <button class="btn">Бонус</button>
   </section>
 
 </main>
 
-<!-- ================= СОБАКА ================= -->
+<!-- ================= СОБАКА (стиль Dog House) ================= -->
 <div class="dog-wrap">
-  <svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg">
+  <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
     <defs>
-      <linearGradient id="fur" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#c98a4b"/>
-        <stop offset="55%" stop-color="#a86a32"/>
-        <stop offset="100%" stop-color="#7d4a1e"/>
+      <!-- шерсть: золотисто-коричневая -->
+      <linearGradient id="furMain" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"   stop-color="#c9963f"/>
+        <stop offset="55%"  stop-color="#a9741f"/>
+        <stop offset="100%" stop-color="#7d5312"/>
       </linearGradient>
-      <linearGradient id="snout" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#f3dcb8"/>
-        <stop offset="100%" stop-color="#d8b483"/>
+      <!-- тёмные уши -->
+      <linearGradient id="furEar" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"   stop-color="#8b5f1c"/>
+        <stop offset="100%" stop-color="#5c3c0c"/>
       </linearGradient>
-      <linearGradient id="collar" x1="0" y1="0" x2="1" y2="0">
-        <stop offset="0%" stop-color="#4f7bff"/>
-        <stop offset="100%" stop-color="#7d4bff"/>
+      <!-- светлая морда -->
+      <linearGradient id="muzzle" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"   stop-color="#efd9a8"/>
+        <stop offset="100%" stop-color="#d3b077"/>
+      </linearGradient>
+      <!-- красный ошейник -->
+      <linearGradient id="collar" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"   stop-color="#e0453c"/>
+        <stop offset="100%" stop-color="#a8241e"/>
+      </linearGradient>
+      <!-- жетон -->
+      <linearGradient id="tag" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"   stop-color="#ffe89a"/>
+        <stop offset="100%" stop-color="#c9a02c"/>
       </linearGradient>
       <radialGradient id="glow" cx="50%" cy="50%" r="50%">
-        <stop offset="0%" stop-color="rgba(79,123,255,0.45)"/>
-        <stop offset="100%" stop-color="rgba(79,123,255,0)"/>
+        <stop offset="0%"   stop-color="rgba(60, 90, 180, 0.20)"/>
+        <stop offset="100%" stop-color="rgba(60, 90, 180, 0)"/>
       </radialGradient>
     </defs>
 
     <!-- свечение под собакой -->
-    <ellipse cx="200" cy="235" rx="150" ry="30" fill="url(#glow)"/>
+    <ellipse cx="200" cy="284" rx="140" ry="22" fill="url(#glow)"/>
 
-    <!-- уши -->
-    <path class="ear-l" d="M118 92 C 92 70, 70 118, 92 156 C 104 178, 128 168, 132 140 Z" fill="url(#fur)" stroke="#5d3516" stroke-width="2"/>
-    <path class="ear-r" d="M282 92 C 308 70, 330 118, 308 156 C 296 178, 272 168, 268 140 Z" fill="url(#fur)" stroke="#5d3516" stroke-width="2"/>
-    <path d="M112 108 C 98 100, 86 128, 100 152 C 107 163, 120 158, 122 140 Z" fill="#8a5222" opacity="0.75"/>
-    <path d="M288 108 C 302 100, 314 128, 300 152 C 293 163, 280 158, 278 140 Z" fill="#8a5222" opacity="0.75"/>
+    <!-- хвост (сбоку) -->
+    <g class="tail" transform="translate(0,0)">
+      <path d="M300 250 Q356 232, 342 186 Q334 214, 302 226 Z"
+            fill="url(#furMain)" stroke="#4a3009" stroke-width="2.5" stroke-linejoin="round"/>
+    </g>
+
+    <!-- тело -->
+    <path d="M124 214 Q200 176, 276 214 L292 292 L108 292 Z"
+          fill="url(#furMain)" stroke="#4a3009" stroke-width="3" stroke-linejoin="round"/>
+
+    <!-- светлая грудка -->
+    <path d="M200 226 Q238 236, 250 292 L150 292 Q162 236, 200 226 Z"
+          fill="url(#muzzle)" opacity="0.9"/>
+
+    <!-- уши (складные, свисают по бокам) -->
+    <path class="ear-l"
+          d="M124 96 Q78 84, 62 138 Q50 192, 96 206 Q126 214, 128 168 Z"
+          fill="url(#furEar)" stroke="#3f2907" stroke-width="3" stroke-linejoin="round"/>
+    <path class="ear-r"
+          d="M276 96 Q322 84, 338 138 Q350 192, 304 206 Q274 214, 272 168 Z"
+          fill="url(#furEar)" stroke="#3f2907" stroke-width="3" stroke-linejoin="round"/>
 
     <!-- голова -->
-    <ellipse cx="200" cy="120" rx="90" ry="78" fill="url(#fur)" stroke="#5d3516" stroke-width="2.5"/>
+    <ellipse cx="200" cy="136" rx="98" ry="86"
+             fill="url(#furMain)" stroke="#4a3009" stroke-width="3"/>
 
-    <!-- тёмная маска вокруг глаз -->
-    <ellipse cx="200" cy="132" rx="72" ry="52" fill="#8d5626" opacity="0.55"/>
-
-    <!-- брови / пятна -->
-    <ellipse cx="168" cy="86" rx="13" ry="9" fill="#f0d9b6" opacity="0.85"/>
-    <ellipse cx="232" cy="86" rx="13" ry="9" fill="#f0d9b6" opacity="0.85"/>
+    <!-- блик на макушке -->
+    <ellipse cx="200" cy="72" rx="72" ry="26" fill="#e0ad55" opacity="0.35"/>
 
     <!-- глаза -->
     <g class="eyes-blink">
-      <ellipse cx="172" cy="118" rx="15" ry="17" fill="#fff"/>
-      <ellipse cx="228" cy="118" rx="15" ry="17" fill="#fff"/>
-      <circle cx="174" cy="120" r="8.5" fill="#2b1a0c"/>
-      <circle cx="230" cy="120" r="8.5" fill="#2b1a0c"/>
-      <circle cx="177" cy="116" r="3" fill="#fff"/>
-      <circle cx="233" cy="116" r="3" fill="#fff"/>
+      <ellipse cx="164" cy="124" rx="17" ry="19" fill="#fdf6e6" stroke="#5c3c0c" stroke-width="2"/>
+      <ellipse cx="236" cy="124" rx="17" ry="19" fill="#fdf6e6" stroke="#5c3c0c" stroke-width="2"/>
+      <circle cx="166" cy="127" r="10" fill="#221507"/>
+      <circle cx="238" cy="127" r="10" fill="#221507"/>
+      <circle cx="170" cy="122" r="3.6" fill="#ffffff"/>
+      <circle cx="242" cy="122" r="3.6" fill="#ffffff"/>
+      <circle cx="162" cy="132" r="1.8" fill="#ffffff" opacity="0.7"/>
+      <circle cx="234" cy="132" r="1.8" fill="#ffffff" opacity="0.7"/>
     </g>
 
-    <!-- морда -->
-    <ellipse cx="200" cy="158" rx="48" ry="36" fill="url(#snout)" stroke="#b8905e" stroke-width="1.5"/>
+    <!-- брови-пятнышки -->
+    <ellipse cx="162" cy="98" rx="13" ry="8" fill="#8b5f1c" opacity="0.55"/>
+    <ellipse cx="238" cy="98" rx="13" ry="8" fill="#8b5f1c" opacity="0.55"/>
+
+    <!-- светлая морда -->
+    <ellipse cx="200" cy="180" rx="62" ry="46"
+             fill="url(#muzzle)" stroke="#b8914f" stroke-width="2"/>
 
     <!-- нос -->
-    <path d="M186 140 Q200 130, 214 140 Q200 154, 186 140 Z" fill="#2e1c0e"/>
-    <ellipse cx="194" cy="138" rx="5" ry="3" fill="#5c4028" opacity="0.7"/>
+    <path d="M182 152 Q200 138, 218 152 Q214 172, 200 176 Q186 172, 182 152 Z"
+          fill="#241708" stroke="#120a03" stroke-width="1.5"/>
+    <ellipse cx="192" cy="150" rx="5" ry="3.2" fill="#5a4325" opacity="0.8"/>
 
     <!-- рот -->
-    <path d="M200 148 L200 160" stroke="#7a4f28" stroke-width="2.5" stroke-linecap="round"/>
-    <path d="M200 160 Q188 172, 178 164" stroke="#7a4f28" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-    <path d="M200 160 Q212 172, 222 164" stroke="#7a4f28" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+    <path d="M200 176 L200 190" stroke="#8a6a33" stroke-width="3" stroke-linecap="round"/>
+    <path d="M200 190 Q186 204, 174 194" stroke="#8a6a33" stroke-width="3"
+          stroke-linecap="round" fill="none"/>
+    <path d="M200 190 Q214 204, 226 194" stroke="#8a6a33" stroke-width="3"
+          stroke-linecap="round" fill="none"/>
 
     <!-- язык -->
     <g class="tongue">
-      <path d="M193 168 Q200 196, 209 168 Q200 178, 193 168 Z" fill="#f06a86" stroke="#c94662" stroke-width="1.2"/>
+      <path d="M192 198 Q200 226, 209 198 Q200 208, 192 198 Z"
+            fill="#d9647b" stroke="#a8445a" stroke-width="1.4"/>
     </g>
 
-    <!-- усы -->
-    <path d="M168 150 L146 144 M168 158 L144 158 M168 166 L146 172"
-          stroke="#6b4523" stroke-width="1.6" stroke-linecap="round" opacity="0.75"/>
-    <path d="M232 150 L254 144 M232 158 L256 158 M232 166 L254 172"
-          stroke="#6b4523" stroke-width="1.6" stroke-linecap="round" opacity="0.75"/>
-
-    <!-- шея / тело -->
-    <path d="M140 186 Q200 214, 260 186 L272 250 L128 250 Z" fill="url(#fur)" stroke="#5d3516" stroke-width="2.5"/>
+    <!-- нос-усы точки -->
+    <circle cx="172" cy="176" r="1.8" fill="#8a6a33"/>
+    <circle cx="178" cy="184" r="1.8" fill="#8a6a33"/>
+    <circle cx="228" cy="176" r="1.8" fill="#8a6a33"/>
+    <circle cx="222" cy="184" r="1.8" fill="#8a6a33"/>
 
     <!-- ошейник -->
-    <path d="M134 196 Q200 228, 266 196 L268 212 Q200 246, 132 212 Z" fill="url(#collar)"/>
-    <circle cx="200" cy="230" r="10" fill="#ffcf5c" stroke="#c9962f" stroke-width="2"/>
-    <text x="200" y="235" text-anchor="middle" font-size="11" font-weight="bold" fill="#6a4a00" font-family="Segoe UI, sans-serif">$</text>
+    <path d="M118 220 Q200 258, 282 220 L286 240 Q200 282, 114 240 Z"
+          fill="url(#collar)" stroke="#6d130f" stroke-width="2.5" stroke-linejoin="round"/>
+
+    <!-- жетон -->
+    <circle cx="200" cy="264" r="15" fill="url(#tag)" stroke="#8a6a13" stroke-width="2.5"/>
+    <text x="200" y="270" text-anchor="middle"
+          font-size="15" font-weight="bold" fill="#7a5a10"
+          font-family="Segoe UI, sans-serif">$</text>
+
+    <!-- лапы -->
+    <ellipse cx="152" cy="292" rx="26" ry="14" fill="url(#muzzle)" stroke="#b8914f" stroke-width="2"/>
+    <ellipse cx="248" cy="292" rx="26" ry="14" fill="url(#muzzle)" stroke="#b8914f" stroke-width="2"/>
   </svg>
 </div>
 
