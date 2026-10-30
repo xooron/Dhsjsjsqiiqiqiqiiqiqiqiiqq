@@ -1,427 +1,215 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VIP BONUS</title>
-<style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>BONUS CASINO</title>
+    <!-- Подключаем официальный SDK Telegram для инициализации WebApp -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        :root {
+            /* Темно-темно-синий фон, как вы просили */
+            --bg-color: rgba(5, 10, 30, 0.85);
+            --panel-bg: rgba(10, 20, 50, 0.4);
+            --glass-color: rgba(255, 255, 255, 0.08);
+            --text-primary: #ffffff;
+            --text-secondary: #a0a8c0;
+            --accent-gradient: linear-gradient(135deg, #00e5ff, #8e2de2);
+            --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
 
-  html, body { min-height: 100%; }
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background: linear-gradient(135deg, #0a0f2a, #1a051e);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
 
-  body {
-    font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
-    background: #05070f;
-    color: #dfe7ff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    overflow-x: hidden;
-    position: relative;
-    padding-bottom: 240px;
-  }
+        /* Инициализация Telegram WebApp (убирает стандартные поля мессенджера) */
+        body.telegram-app-ready {
+            background: var(--bg-color);
+        }
 
-  /* ==== ФОН ==== */
-  .bg {
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-    background:
-      radial-gradient(ellipse 65% 45% at 18% 8%,  rgba(26, 44, 92, 0.55) 0%, transparent 62%),
-      radial-gradient(ellipse 55% 45% at 84% 22%, rgba(48, 28, 78, 0.45) 0%, transparent 60%),
-      radial-gradient(ellipse 90% 55% at 50% 104%, rgba(14, 24, 52, 0.85) 0%, transparent 70%),
-      #05070f;
-  }
+        /* Верхняя панель */
+        .header {
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
 
-  .stars {
-    position: fixed;
-    inset: 0;
-    z-index: 1;
-    pointer-events: none;
-    background-image:
-      radial-gradient(1px 1px at 12% 18%, rgba(180,200,255,0.30), transparent),
-      radial-gradient(1px 1px at 78% 12%, rgba(180,200,255,0.24), transparent),
-      radial-gradient(1px 1px at 34% 62%, rgba(180,200,255,0.22), transparent),
-      radial-gradient(1px 1px at 66% 78%, rgba(180,200,255,0.20), transparent),
-      radial-gradient(1px 1px at 88% 44%, rgba(180,200,255,0.22), transparent),
-      radial-gradient(1px 1px at 22% 88%, rgba(180,200,255,0.18), transparent),
-      radial-gradient(1px 1px at 52% 32%, rgba(180,200,255,0.16), transparent);
-    animation: twinkle 9s ease-in-out infinite;
-  }
+        .header-title {
+            font-size: 20px;
+            font-weight: 700;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 0.5px;
+        }
 
-  @keyframes twinkle {
-    0%, 100% { opacity: 0.55; }
-    50%      { opacity: 1; }
-  }
+        .header-sub {
+            font-size: 13px;
+            padding: 6px 12px;
+            background: var(--panel-bg);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 999px;
+            backdrop-filter: blur(15px);
+            box-shadow: var(--shadow);
+        }
 
-  /* ==== ЛОГОТИП (только текст) ==== */
-  header {
-    width: 100%;
-    max-width: 1120px;
-    padding: 40px 44px 0;
-    z-index: 5;
-  }
+        /* Основной контейнер */
+        .container {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
 
-  .logo {
-    display: inline-block;
-    font-size: 26px;
-    font-weight: 800;
-    letter-spacing: 6px;
-    text-transform: uppercase;
-    background: linear-gradient(100deg, #8a9bd6 0%, #d7e0ff 45%, #8a9bd6 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    filter: drop-shadow(0 0 10px rgba(90, 120, 200, 0.25));
-    animation: logoFloat 6s ease-in-out infinite;
-  }
+        /* Стеклянные панельки с играми */
+        .game-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
 
-  @keyframes logoFloat {
-    0%, 100% { transform: translateY(0); }
-    50%      { transform: translateY(-3px); }
-  }
+        .game-panel {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            background: var(--glass-color);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(20px);
+            box-shadow: var(--shadow);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
 
-  /* ==== КОМПАКТНЫЕ ПАНЕЛИ ==== */
-  .panels {
-    width: 100%;
-    max-width: 400px;          /* уже */
-    display: flex;
-    flex-direction: column;
-    gap: 12px;                 /* меньше отступ */
-    margin-top: 52px;
-    padding: 0 20px;
-    z-index: 5;
-  }
+        .game-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.8s;
+        }
 
-  .panel {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 14px;
-    padding: 14px 18px;        /* компактнее */
-    border-radius: 14px;
-    background: rgba(255, 255, 255, 0.028);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(140, 165, 230, 0.10);
-    box-shadow:
-      0 8px 26px rgba(0, 0, 0, 0.65),
-      inset 0 1px 0 rgba(255,255,255,0.06);
-    overflow: hidden;
-    opacity: 0;
-    transform: translateY(28px);
-    animation: panelIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-    transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
-  }
+        .game-panel:hover::before {
+            left: 100%;
+        }
 
-  .panel:nth-child(1) { animation-delay: 0.10s; }
-  .panel:nth-child(2) { animation-delay: 0.24s; }
-  .panel:nth-child(3) { animation-delay: 0.38s; }
+        .game-panel:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(142, 45, 226, 0.25);
+        }
 
-  @keyframes panelIn {
-    to { opacity: 1; transform: translateY(0); }
-  }
+        .game-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
 
-  .panel:hover {
-    transform: translateY(-3px);
-    border-color: rgba(120, 150, 230, 0.28);
-    box-shadow:
-      0 14px 36px rgba(0, 0, 0, 0.75),
-      0 0 20px rgba(70, 100, 190, 0.14),
-      inset 0 1px 0 rgba(255,255,255,0.09);
-  }
+        .bonus-btn {
+            padding: 10px 20px;
+            background: var(--accent-gradient);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(142, 45, 226, 0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+            flex-shrink: 0;
+        }
 
-  .panel::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -70%;
-    width: 45%;
-    height: 100%;
-    background: linear-gradient(100deg, transparent, rgba(160, 190, 255, 0.07), transparent);
-    transform: skewX(-18deg);
-    animation: shine 7s ease-in-out infinite;
-  }
+        .bonus-btn:active {
+            transform: scale(0.96);
+            box-shadow: 0 2px 8px rgba(142, 45, 226, 0.3);
+        }
 
-  .panel:nth-child(2)::after { animation-delay: 1.6s; }
-  .panel:nth-child(3)::after { animation-delay: 3.2s; }
-
-  @keyframes shine {
-    0%, 70% { left: -70%; }
-    100%    { left: 130%; }
-  }
-
-  .panel-name {
-    font-size: 17px;
-    font-weight: 700;
-    letter-spacing: 3px;
-    color: #dfe7ff;
-  }
-
-  .panel-name span {
-    display: block;
-    font-size: 9px;
-    font-weight: 500;
-    letter-spacing: 1.6px;
-    color: rgba(130, 150, 200, 0.55);
-    margin-top: 3px;
-  }
-
-  /* ==== КНОПКА ==== */
-  .btn {
-    position: relative;
-    border: 1px solid rgba(150, 175, 240, 0.20);
-    cursor: pointer;
-    padding: 9px 14px;
-    border-radius: 10px;
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 1.1px;
-    text-transform: uppercase;
-    color: #cfd9f5;
-    background: linear-gradient(135deg, rgba(58, 86, 176, 0.55) 0%, rgba(90, 58, 158, 0.55) 100%);
-    transition: transform 0.2s ease, box-shadow 0.3s ease, filter 0.3s ease, border-color 0.3s ease;
-    white-space: nowrap;
-  }
-
-  .btn:hover {
-    transform: translateY(-2px);
-    filter: brightness(1.2);
-    border-color: rgba(170, 195, 255, 0.45);
-    box-shadow: 0 8px 24px rgba(40, 60, 140, 0.5);
-  }
-
-  .btn:active {
-    transform: translateY(1px) scale(0.98);
-  }
-
-  /* ==== СОБАКА ==== */
-  .dog-wrap {
-    position: fixed;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 3;
-    pointer-events: none;
-    width: min(360px, 76vw);
-    animation: dogBob 4s ease-in-out infinite;
-    filter: drop-shadow(0 -10px 30px rgba(0,0,0,0.9));
-  }
-
-  @keyframes dogBob {
-    0%, 100% { transform: translateX(-50%) translateY(10px); }
-    50%      { transform: translateX(-50%) translateY(0); }
-  }
-
-  .dog-wrap svg { width: 100%; height: auto; display: block; }
-
-  .ear-l, .ear-r { transform-origin: center top; animation: earWiggle 4.5s ease-in-out infinite; }
-  .ear-r { animation-delay: 0.7s; }
-
-  @keyframes earWiggle {
-    0%, 100% { transform: rotate(0deg); }
-    30%      { transform: rotate(3deg); }
-    65%      { transform: rotate(-2deg); }
-  }
-
-  .tongue { transform-origin: 50% 0%; animation: tongueWag 2.6s ease-in-out infinite; }
-
-  @keyframes tongueWag {
-    0%, 100% { transform: rotate(0deg); }
-    50%      { transform: rotate(6deg); }
-  }
-
-  .eyes-blink { animation: blink 6s infinite; }
-  @keyframes blink {
-    0%, 93%, 100% { transform: scaleY(1); }
-    96%           { transform: scaleY(0.1); }
-  }
-
-  .tail { transform-origin: 100% 100%; animation: tailWag 1.8s ease-in-out infinite; }
-  @keyframes tailWag {
-    0%, 100% { transform: rotate(-8deg); }
-    50%      { transform: rotate(10deg); }
-  }
-
-  @media (max-width: 560px) {
-    header { padding: 28px 22px 0; }
-    .logo { font-size: 20px; letter-spacing: 4px; }
-    .panels { margin-top: 40px; max-width: 100%; }
-    .panel {
-      padding: 12px 14px;
-      gap: 10px;
-    }
-    .panel-name { font-size: 15px; letter-spacing: 2.4px; }
-    .btn { font-size: 9px; padding: 8px 11px; }
-    body { padding-bottom: 200px; }
-  }
-</style>
+        /* Telegram Safe Area для iPhone (чтобы контент не уходил под Dynamic Island) */
+        .safe-area {
+            padding-bottom: env(safe-area-inset-bottom, 20px);
+        }
+    </style>
 </head>
 <body>
 
-<div class="bg"></div>
-<div class="stars"></div>
+    <header class="header">
+        <div class="header-title">BONUS CASINO</div>
+        <div class="header-sub">Выбирай скорее себе бонус и выигрывай вместе с нами и 100% RTP</div>
+    </header>
 
-<header>
-  <div class="logo">VIP BONUS</div>
-</header>
+    <main class="container">
+        <div class="game-grid">
+            <div class="game-panel">
+                <span class="game-name">PANDA</span>
+                <button class="bonus-btn">Получить Бонус</button>
+            </div>
+            <div class="game-panel">
+                <span class="game-name">BANDIT</span>
+                <button class="bonus-btn">Получить Бонус</button>
+            </div>
+            <div class="game-panel">
+                <span class="game-name">JETTON</span>
+                <button class="bonus-btn">Получить Бонус</button>
+            </div>
+            <div class="game-panel">
+                <span class="game-name">LEEBET</span>
+                <button class="bonus-btn">Получить Бонус</button>
+            </div>
+            <div class="game-panel">
+                <span class="game-name">APEX</span>
+                <button class="bonus-btn">Получить Бонус</button>
+            </div>
+            <div class="game-panel">
+                <span class="game-name">EVA</span>
+                <button class="bonus-btn">Получить Бонус</button>
+            </div>
+        </div>
+        <div class="safe-area"></div>
+    </main>
 
-<main class="panels">
+    <script>
+        // Инициализация Telegram WebApp
+        const tg = window.Telegram.WebApp;
+        
+        // Меняем цвет заголовка в самом клиенте Telegram (верхняя полоска)
+        tg.MainButton.setText('Продолжить').hide();
+        tg.BackButton.show();
+        
+        // Применяем безопасные области и расширяем фон на весь экран
+        tg.expand();
+        tg.enableClosingConfirmation();
+        
+        // Добавляем класс для корректного фона после инициализации
+        document.body.classList.add('telegram-app-ready');
 
-  <section class="panel">
-    <div class="panel-name">PANDA<span>SLOT · 96.1% RTP</span></div>
-    <button class="btn">Бонус</button>
-  </section>
-
-  <section class="panel">
-    <div class="panel-name">BANDIT<span>SLOT · 95.7% RTP</span></div>
-    <button class="btn">Бонус</button>
-  </section>
-
-  <section class="panel">
-    <div class="panel-name">APEX<span>SLOT · 96.4% RTP</span></div>
-    <button class="btn">Бонус</button>
-  </section>
-
-</main>
-
-<!-- ================= СОБАКА (стиль Dog House) ================= -->
-<div class="dog-wrap">
-  <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <!-- шерсть: золотисто-коричневая -->
-      <linearGradient id="furMain" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%"   stop-color="#c9963f"/>
-        <stop offset="55%"  stop-color="#a9741f"/>
-        <stop offset="100%" stop-color="#7d5312"/>
-      </linearGradient>
-      <!-- тёмные уши -->
-      <linearGradient id="furEar" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%"   stop-color="#8b5f1c"/>
-        <stop offset="100%" stop-color="#5c3c0c"/>
-      </linearGradient>
-      <!-- светлая морда -->
-      <linearGradient id="muzzle" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%"   stop-color="#efd9a8"/>
-        <stop offset="100%" stop-color="#d3b077"/>
-      </linearGradient>
-      <!-- красный ошейник -->
-      <linearGradient id="collar" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%"   stop-color="#e0453c"/>
-        <stop offset="100%" stop-color="#a8241e"/>
-      </linearGradient>
-      <!-- жетон -->
-      <linearGradient id="tag" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%"   stop-color="#ffe89a"/>
-        <stop offset="100%" stop-color="#c9a02c"/>
-      </linearGradient>
-      <radialGradient id="glow" cx="50%" cy="50%" r="50%">
-        <stop offset="0%"   stop-color="rgba(60, 90, 180, 0.20)"/>
-        <stop offset="100%" stop-color="rgba(60, 90, 180, 0)"/>
-      </radialGradient>
-    </defs>
-
-    <!-- свечение под собакой -->
-    <ellipse cx="200" cy="284" rx="140" ry="22" fill="url(#glow)"/>
-
-    <!-- хвост (сбоку) -->
-    <g class="tail" transform="translate(0,0)">
-      <path d="M300 250 Q356 232, 342 186 Q334 214, 302 226 Z"
-            fill="url(#furMain)" stroke="#4a3009" stroke-width="2.5" stroke-linejoin="round"/>
-    </g>
-
-    <!-- тело -->
-    <path d="M124 214 Q200 176, 276 214 L292 292 L108 292 Z"
-          fill="url(#furMain)" stroke="#4a3009" stroke-width="3" stroke-linejoin="round"/>
-
-    <!-- светлая грудка -->
-    <path d="M200 226 Q238 236, 250 292 L150 292 Q162 236, 200 226 Z"
-          fill="url(#muzzle)" opacity="0.9"/>
-
-    <!-- уши (складные, свисают по бокам) -->
-    <path class="ear-l"
-          d="M124 96 Q78 84, 62 138 Q50 192, 96 206 Q126 214, 128 168 Z"
-          fill="url(#furEar)" stroke="#3f2907" stroke-width="3" stroke-linejoin="round"/>
-    <path class="ear-r"
-          d="M276 96 Q322 84, 338 138 Q350 192, 304 206 Q274 214, 272 168 Z"
-          fill="url(#furEar)" stroke="#3f2907" stroke-width="3" stroke-linejoin="round"/>
-
-    <!-- голова -->
-    <ellipse cx="200" cy="136" rx="98" ry="86"
-             fill="url(#furMain)" stroke="#4a3009" stroke-width="3"/>
-
-    <!-- блик на макушке -->
-    <ellipse cx="200" cy="72" rx="72" ry="26" fill="#e0ad55" opacity="0.35"/>
-
-    <!-- глаза -->
-    <g class="eyes-blink">
-      <ellipse cx="164" cy="124" rx="17" ry="19" fill="#fdf6e6" stroke="#5c3c0c" stroke-width="2"/>
-      <ellipse cx="236" cy="124" rx="17" ry="19" fill="#fdf6e6" stroke="#5c3c0c" stroke-width="2"/>
-      <circle cx="166" cy="127" r="10" fill="#221507"/>
-      <circle cx="238" cy="127" r="10" fill="#221507"/>
-      <circle cx="170" cy="122" r="3.6" fill="#ffffff"/>
-      <circle cx="242" cy="122" r="3.6" fill="#ffffff"/>
-      <circle cx="162" cy="132" r="1.8" fill="#ffffff" opacity="0.7"/>
-      <circle cx="234" cy="132" r="1.8" fill="#ffffff" opacity="0.7"/>
-    </g>
-
-    <!-- брови-пятнышки -->
-    <ellipse cx="162" cy="98" rx="13" ry="8" fill="#8b5f1c" opacity="0.55"/>
-    <ellipse cx="238" cy="98" rx="13" ry="8" fill="#8b5f1c" opacity="0.55"/>
-
-    <!-- светлая морда -->
-    <ellipse cx="200" cy="180" rx="62" ry="46"
-             fill="url(#muzzle)" stroke="#b8914f" stroke-width="2"/>
-
-    <!-- нос -->
-    <path d="M182 152 Q200 138, 218 152 Q214 172, 200 176 Q186 172, 182 152 Z"
-          fill="#241708" stroke="#120a03" stroke-width="1.5"/>
-    <ellipse cx="192" cy="150" rx="5" ry="3.2" fill="#5a4325" opacity="0.8"/>
-
-    <!-- рот -->
-    <path d="M200 176 L200 190" stroke="#8a6a33" stroke-width="3" stroke-linecap="round"/>
-    <path d="M200 190 Q186 204, 174 194" stroke="#8a6a33" stroke-width="3"
-          stroke-linecap="round" fill="none"/>
-    <path d="M200 190 Q214 204, 226 194" stroke="#8a6a33" stroke-width="3"
-          stroke-linecap="round" fill="none"/>
-
-    <!-- язык -->
-    <g class="tongue">
-      <path d="M192 198 Q200 226, 209 198 Q200 208, 192 198 Z"
-            fill="#d9647b" stroke="#a8445a" stroke-width="1.4"/>
-    </g>
-
-    <!-- нос-усы точки -->
-    <circle cx="172" cy="176" r="1.8" fill="#8a6a33"/>
-    <circle cx="178" cy="184" r="1.8" fill="#8a6a33"/>
-    <circle cx="228" cy="176" r="1.8" fill="#8a6a33"/>
-    <circle cx="222" cy="184" r="1.8" fill="#8a6a33"/>
-
-    <!-- ошейник -->
-    <path d="M118 220 Q200 258, 282 220 L286 240 Q200 282, 114 240 Z"
-          fill="url(#collar)" stroke="#6d130f" stroke-width="2.5" stroke-linejoin="round"/>
-
-    <!-- жетон -->
-    <circle cx="200" cy="264" r="15" fill="url(#tag)" stroke="#8a6a13" stroke-width="2.5"/>
-    <text x="200" y="270" text-anchor="middle"
-          font-size="15" font-weight="bold" fill="#7a5a10"
-          font-family="Segoe UI, sans-serif">$</text>
-
-    <!-- лапы -->
-    <ellipse cx="152" cy="292" rx="26" ry="14" fill="url(#muzzle)" stroke="#b8914f" stroke-width="2"/>
-    <ellipse cx="248" cy="292" rx="26" ry="14" fill="url(#muzzle)" stroke="#b8914f" stroke-width="2"/>
-  </svg>
-</div>
-
-<script>
-  document.querySelectorAll('.btn').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      btn.style.transform = 'scale(0.92)';
-      setTimeout(function () { btn.style.transform = ''; }, 130);
-    });
-  });
-</script>
-
+        // Логика кнопок (пример)
+        document.querySelectorAll('.bonus-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const gameName = btn.previousElementSibling.textContent;
+                // Здесь будет ваша логика выдачи бонуса
+                tg.HapticFeedback.notificationOccurred('success');
+                alert(`Бонус для ${gameName} успешно получен!`);
+            });
+        });
+    </script>
 </body>
 </html>
